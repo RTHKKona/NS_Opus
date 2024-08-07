@@ -3,12 +3,12 @@ setlocal
 
 :: Check if input files are provided
 if "%~1"=="" (
-    echo No input files provided. Please drag-and-drop .wav or .mp4 files onto this script.
+    echo No input files provided. Please drag-and-drop .wav, .mp4, or .mp3 files onto this script.
     pause
     exit /b 1
 )
 
-echo Handburger's .wav/mp4 to s16le PCM to Nintendo Switch OPUS converter!
+echo Handburger's .wav/mp4/mp3 to s16le PCM to Nintendo Switch OPUS converter!
 echo Credits to ffmpeg and masagrator for the MHGU opus encoder.
 
 :: Loop through input files
@@ -27,8 +27,11 @@ set "resampled_file=%input_path%%input_file%_48kHz.wav"
 set "raw_file=%input_path%%input_file%.raw"
 set "opus_file=%input_path%%input_file%.opus"
 
-:: Convert mp4 to wav if needed
+:: Convert mp4 or mp3 to wav if needed
 if /i "%~x1"==".mp4" (
+    echo Converting "%~1" to WAV...
+    ffmpeg.exe -i "%~1" -hide_banner -loglevel error "%wav_file%" || goto error_wav
+) else if /i "%~x1"==".mp3" (
     echo Converting "%~1" to WAV...
     ffmpeg.exe -i "%~1" -hide_banner -loglevel error "%wav_file%" || goto error_wav
 ) else if /i "%~x1"==".wav" (
