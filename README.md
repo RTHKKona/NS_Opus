@@ -1,10 +1,10 @@
-# WAV/MP4 to OPUS Converter
+# Audio/Video to OPUS Converter
 
-This project provides a batch script for converting `.wav` and `.mp4` audio files to `.opus` format, specifically designed for compatibility with Nintendo Switch audio. The script utilizes `ffmpeg` for audio processing and a custom OPUS encoder for Monster Hunter Generations Ultimate (written by masagrator!).
+This project provides a batch script for converting `.wav, .mp3, and .mp4` audio files to `.opus` format, specifically designed for compatibility with Nintendo Switch audio. The script utilizes `ffmpeg` for audio processing and a custom OPUS encoder for Monster Hunter Generations Ultimate (written by masagrator!).
 
 ## Features
 
-- **Supports Multiple File Formats**: Convert both `.wav` and `.mp4` files to `.opus`.
+- **Supports Multiple File Formats**: Convert `.mp3`, `.wav`, and  `.mp4` files to `.opus`.
 - **Batch Processing**: Drag-and-drop multiple files to convert them in a single operation.
 - **Temporary File Management**: Automatically deletes temporary files created during conversion.
 - **Progress Indication**: Displays a progress bar during conversion.
