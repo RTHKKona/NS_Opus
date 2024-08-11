@@ -8,7 +8,7 @@ if "%~1"=="" (
     exit /b 1
 )
 
-echo Handburger's .wav/mp4/mp3 to s16le PCM to Nintendo Switch OPUS converter!
+echo Handburger's .wav/mp4/mp3/flac to s16le PCM to Nintendo Switch OPUS converter!
 echo Credits to ffmpeg and masagrator for the MHGU opus encoder.
 
 :: Loop through input files
@@ -32,6 +32,9 @@ if /i "%~x1"==".mp4" (
     echo Converting "%~1" to WAV...
     ffmpeg.exe -i "%~1" -hide_banner -loglevel error "%wav_file%" || goto error_wav
 ) else if /i "%~x1"==".mp3" (
+    echo Converting "%~1" to WAV...
+    ffmpeg.exe -i "%~1" -hide_banner -loglevel error "%wav_file%" || goto error_wav
+) else if /i "%~x1"==".flac" (
     echo Converting "%~1" to WAV...
     ffmpeg.exe -i "%~1" -hide_banner -loglevel error "%wav_file%" || goto error_wav
 ) else if /i "%~x1"==".wav" (
