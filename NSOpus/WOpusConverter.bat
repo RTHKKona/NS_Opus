@@ -3,7 +3,7 @@ setlocal
 
 :: Check if input files are provided
 if "%~1"=="" (
-    echo No input files provided. Please drag-and-drop .wav, .mp4, or .mp3 files onto this script.
+    echo No input files provided. Please drag-and-drop .wav, .mp4, .mp3, or .flac files onto this script.
     pause
     exit /b 1
 )
@@ -27,16 +27,20 @@ set "resampled_file=%input_path%%input_file%_48kHz.wav"
 set "raw_file=%input_path%%input_file%.raw"
 set "opus_file=%input_path%%input_file%.opus"
 
-:: Convert mp4 or mp3 to wav if needed
+:: Convert mp4, mp3, or flac to wav if needed
+set "delete_wav=false"
 if /i "%~x1"==".mp4" (
     echo Converting "%~1" to WAV...
     ffmpeg.exe -i "%~1" -hide_banner -loglevel error "%wav_file%" || goto error_wav
+    set "delete_wav=true"
 ) else if /i "%~x1"==".mp3" (
     echo Converting "%~1" to WAV...
     ffmpeg.exe -i "%~1" -hide_banner -loglevel error "%wav_file%" || goto error_wav
+    set "delete_wav=true"
 ) else if /i "%~x1"==".flac" (
     echo Converting "%~1" to WAV...
     ffmpeg.exe -i "%~1" -hide_banner -loglevel error "%wav_file%" || goto error_wav
+    set "delete_wav=true"
 ) else if /i "%~x1"==".wav" (
     set "wav_file=%~1"
 ) else (
@@ -55,7 +59,8 @@ NXAenc -i "%raw_file%" -o "%opus_file%" || goto error_opus
 echo Conversion for "%~1" into "%opus_file%" successfully completed.
 
 :: Clean up temporary files
-del "%resampled_file%" "%raw_file%" "%wav_file%"
+if /i "%delete_wav%"=="true" del "%wav_file%"
+del "%resampled_file%" "%raw_file%"
 echo Temporary files deleted.
 
 :: Display completion
@@ -67,6 +72,7 @@ start "" "%input_path%"
 
 :: Shift to the next file
 shift
+if "%~1"=="" goto endloop
 goto loop
 
 :endloop
