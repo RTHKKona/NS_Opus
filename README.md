@@ -1,5 +1,7 @@
 # Audio/Video to OPUS Converter
 
+## Refer to Hand_Modkit for updates and improvements!
+
 This project provides a batch script for converting `.wav, .mp3, and .mp4` audio files to `.opus` format, specifically designed for compatibility with Nintendo Switch audio. The script utilizes `ffmpeg` for audio processing and a custom OPUS encoder for Monster Hunter Generations Ultimate (written by masagrator!).
 
 ## Features
